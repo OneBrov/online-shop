@@ -12,8 +12,6 @@ import { login, registration } from '../../http/userAPI';
 import { observer } from 'mobx-react-lite';
 import { Context } from '../..';
 
-
-
 const Auth = observer( () => {
         const location = useLocation()
         const isLogin = location.pathname === LOGIN_ROUTE
@@ -51,7 +49,7 @@ const Auth = observer( () => {
                 <Form className={`p-2 ${styles.auth}`}>
                     <Form.Control
                         className="mt-3"
-                        placeholder="Введите ваш email"
+                        placeholder="Введите вашу электронную почту"
                         value={email}
                         onChange={e => setEmail(e.target.value)}
                     />
