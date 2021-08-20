@@ -168,7 +168,7 @@ const CreateDevice = observer(({show, onHide}) => {
         </Modal.Body>
         <Modal.Footer>
             <Button variant="outline-danger" onClick={onHide}>Закрыть</Button>
-            <Button variant="outline-info" onClick={addDevice}>Дабавить</Button>
+            <Button variant="outline-info" onClick={addDevice}>Добавить</Button>
         </Modal.Footer>
       </Modal>
     )
