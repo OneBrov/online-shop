@@ -24,7 +24,7 @@ const App = observer (() => {
     }).finally( () => setLoading(false))
       fetchTypes().then(data => type.setTypes(data))
       fetchBrands().then(data => brand.setBrands(data))
-  } ,[]) 
+  } , []) 
 
   if (loading) {
     return <Spinner animation={"grow"} />

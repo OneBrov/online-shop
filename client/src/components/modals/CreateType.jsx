@@ -6,13 +6,23 @@ import { createType } from '../../http/typeAPI'
 
 const CreateType = ({show, onHide}) => {
     const [type, setType] = React.useState('')
-    const addType = () => {
-      createType({name:type}).then(data => {
-        setType('')
-        onHide()
-      })
-    }
+    const [uploadStatus, setUploadStatus] = React.useState('')
 
+    React.useEffect(()=> {
+      if (!show) setUploadStatus('')
+    }, [show]) 
+
+    const  handleAddType = async () => {
+      try {
+        setUploadStatus("Идет загрузка...")
+        const typeResponse = await createType({name:type})
+        setType('')
+        setUploadStatus("Информация загружена!")
+      } catch (e) {
+        // setUploadStatus(e)
+        setUploadStatus(e.response?.data.message)
+      }
+    } 
 
     return (
         <Modal
@@ -36,8 +46,11 @@ const CreateType = ({show, onHide}) => {
             </Form>
         </Modal.Body>
         <Modal.Footer>
+            <div>
+              {uploadStatus}
+            </div>
             <Button variant="outline-danger" onClick={onHide}>Закрыть</Button>
-            <Button variant="outline-info" onClick={addType}>Дабавить</Button>
+            <Button variant="outline-info" onClick={handleAddType}>Дабавить</Button>
         </Modal.Footer>
       </Modal>
     )

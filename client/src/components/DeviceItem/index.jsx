@@ -12,10 +12,13 @@ const DeviceItem = ({device}) => {
     const rate = useRating(device.rating)
  
     return (
-        <div onClick={() => history.push(`${DEVICE_ROUTE}/${device.id}`)} className={`d-flex my-2 p-4 justify-content-between ${styles.device}`}>
+        <div 
+        onClick={() => history.push(`${DEVICE_ROUTE}/${device.id}`)} 
+        className={`d-flex my-2 p-4 justify-content-between ${styles.device}`}>
             <Image 
                 className="d-block" 
                 height={160} 
+                width={160}
                 src={ process.env.REACT_APP_API_URL + device.img} 
                 alt="Device"
             />

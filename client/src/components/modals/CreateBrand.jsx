@@ -7,12 +7,25 @@ import { createBrand } from '../../http/brandAPI'
 
 const CreateBrand = ({show, onHide}) => {
     const [brand, setBrand] = React.useState('')
-    const addBrand = () => {
-      createBrand({name:brand}).then(data => {
+    const [uploadStatus, setUploadStatus] = React.useState('')
+
+    React.useEffect(()=> {
+      if (!show) setUploadStatus('')
+    }, [show]) 
+
+
+    const  handleAddBrand = async () => {
+      try {
+        setUploadStatus("Идет загрузка...")
+        const brandResponse = await createBrand({name:brand})
         setBrand('')
-        onHide()
-      })
-    }
+        setUploadStatus("Информация загружена!")
+      } catch (e) {
+        // setUploadStatus(e)
+        setUploadStatus(e.response?.data.message)
+      }
+    } 
+
     return (
         <Modal
         show={show}
@@ -35,8 +48,11 @@ const CreateBrand = ({show, onHide}) => {
             </Form>
         </Modal.Body>
         <Modal.Footer>
+            <div className="mx-2">
+              {uploadStatus}
+            </div>
             <Button variant="outline-danger" onClick={onHide}>Закрыть</Button>
-            <Button variant="outline-info" onClick={addBrand}>Дабавить</Button>
+            <Button variant="outline-info" onClick={() =>handleAddBrand()}>Дабавить</Button>
         </Modal.Footer>
       </Modal>
     )

@@ -8,6 +8,13 @@ export default class UserStore {
         makeAutoObservable(this)
     }
 
+    clearUser(){
+        this._isAuth = false
+        this._user = {}
+        this._isAdmin = false
+        localStorage.clear()
+    }
+
     setIsAuth(val){
         this._isAuth=val
     }

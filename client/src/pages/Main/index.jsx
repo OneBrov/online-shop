@@ -29,7 +29,7 @@ const Main = observer(() => {
                     <Catalog/>
                 </Col>
                 <Col md={9}>
-                    <h4>Найти товар</h4>
+                    <h4>Список товаров</h4>
                     <DeviceList />
                     <Pages />
                 </Col>

@@ -11,24 +11,14 @@ import { useHistory } from 'react-router-dom'
 import styles from './Navigation.module.scss'
 import cartIcon from '../../assets/shopping_cart.svg'
 
-
-
  const Navigation = observer( () =>  {
     const {user, device} = React.useContext(Context)
  
     const history = useHistory()
 
     const logout = () => {
-        user.setUser({})
-        user.setIsAuth(false)
-        user.setIsAdmin(false)
+        user.clearUser()
     }
-
-    const clearDevices = () => {
-        device.reset()
-    }
-
-
 
     return (
         <Navbar className={styles.myNav}  expand="xl" variant={'dark'} >
@@ -36,7 +26,6 @@ import cartIcon from '../../assets/shopping_cart.svg'
                 <Navbar.Brand 
                     className={`me-5 ${styles.cursorPointer}`} 
                     onClick={() => {
-                        clearDevices()
                         history.push(SHOP_ROUTE)
                     }}
                 >
@@ -59,7 +48,7 @@ import cartIcon from '../../assets/shopping_cart.svg'
                      <Button 
                         onClick={() => history.push(ADMIN_ROUTE)} 
                         variant="outline-info"
-                        className={`mx-2 `}
+                        className={`mx-2 mb-1`}
                      >
                          Админ
                      </Button>
@@ -69,6 +58,7 @@ import cartIcon from '../../assets/shopping_cart.svg'
                                 onClick={() => logout()}  
                                 // className={styles.authButton}
                                 variant="outline-info"
+                                className={`mx-2 mb-1`}
                             >
                                 Выйти</Button>
                     :

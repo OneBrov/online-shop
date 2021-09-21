@@ -12,7 +12,7 @@ import './index.scss'
 export const Context = createContext(null)
 
 ReactDOM.render(
-  <React.StrictMode>
+  <>
     <Context.Provider value={{
       user: new UserStore(),
       device: new DeviceStore(),
@@ -21,7 +21,7 @@ ReactDOM.render(
     }}>
       <App />
     </Context.Provider>
-  </React.StrictMode>,
+  </>,
   document.getElementById('root')
 );
 
