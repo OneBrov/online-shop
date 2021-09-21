@@ -61,7 +61,8 @@ import cartIcon from '../../assets/shopping_cart.svg'
                         variant="outline-info"
                         className={`mx-2 `}
                      >
-                         Админ</Button>
+                         Админ
+                     </Button>
                     }
                     {user.isAuth ? 
                             <Button  

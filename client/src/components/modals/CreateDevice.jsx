@@ -63,9 +63,11 @@ const CreateDevice = observer(({show, onHide}) => {
     }
 
     React.useEffect(()=> {
-        fetchTypes().then(data => type.setTypes(data))
-        fetchBrands().then(data => brand.setBrands(data))
-    },[])
+        if (show) {
+            fetchTypes().then(data => type.setTypes(data))
+            fetchBrands().then(data => brand.setBrands(data))
+        }
+    },[show])
     return (
         <Modal
             show={show}

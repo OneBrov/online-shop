@@ -36,9 +36,8 @@ const Auth = observer( () => {
                 }
                 history.push(SHOP_ROUTE)
             } catch(err) {
-                alert(err.response.data.message )
+                alert(err.response ? err.response.data.message: err)
             }
-            
         }
         return (
         <Container 
