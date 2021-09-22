@@ -52,7 +52,7 @@ const CreateBrand = ({show, onHide}) => {
               {uploadStatus}
             </div>
             <Button variant="outline-danger" onClick={onHide}>Закрыть</Button>
-            <Button variant="outline-info" onClick={() =>handleAddBrand()}>Дабавить</Button>
+            <Button variant="outline-info" onClick={() =>handleAddBrand()}>Добавить</Button>
         </Modal.Footer>
       </Modal>
     )

@@ -50,7 +50,7 @@ const CreateType = ({show, onHide}) => {
               {uploadStatus}
             </div>
             <Button variant="outline-danger" onClick={onHide}>Закрыть</Button>
-            <Button variant="outline-info" onClick={handleAddType}>Дабавить</Button>
+            <Button variant="outline-info" onClick={handleAddType}>Добавить</Button>
         </Modal.Footer>
       </Modal>
     )
