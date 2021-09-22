@@ -42,7 +42,8 @@ import cartIcon from '../../assets/shopping_cart.svg'
                     <Nav.Link href="/сontact">Контакты</Nav.Link>
                     <Nav.Link href="/purchaseHistory">История покупок</Nav.Link>
                     <Nav.Link className='d-flex' href="/cart">
-                        Корзина <img className="ms-1" src={cartIcon} alt='' />
+                        Корзина 
+                        <img className="ms-1" src={cartIcon} alt='' />
                     </Nav.Link>
                     {user.isAdmin &&  
                      <Button 

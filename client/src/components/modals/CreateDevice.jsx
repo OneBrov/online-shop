@@ -20,6 +20,7 @@ const CreateDevice = observer(({show, onHide}) => {
     const [chosenBrand, setChosenBrand] = React.useState({})
     const [chosenType, setChosenType] = React.useState({})
     const [info, setInfo] = React.useState([])
+    const [uploadStatus, setUploadStatus] = React.useState('')
 
     const addInfo=() => {
         setInfo(prev => [...prev, {title:'', description:'', id: prev.length }])
@@ -37,7 +38,7 @@ const CreateDevice = observer(({show, onHide}) => {
         setImg(e.target.files[0])
     }
 
-    const addDevice = () => {
+    const addDevice = async () => {
         const formData = new FormData()
         formData.append('name', name)
         formData.append('price',`${price}`)
@@ -46,11 +47,13 @@ const CreateDevice = observer(({show, onHide}) => {
         formData.append('typeId',  chosenType.id)
         formData.append('info', JSON.stringify(info))
          try {
-            createDevice(formData).then(onHide)
+            setUploadStatus("Идет загрузка...")
+            await createDevice(formData)
+            setUploadStatus("Информация загружена!")
+            setTimeout(()=> { clearAll(); onHide() }, 500)
          }  catch (e) {
             alert(e.response.data.message)
-         }
-        
+         }        
     }
 
     const clearAll = () => {
@@ -60,6 +63,7 @@ const CreateDevice = observer(({show, onHide}) => {
         setChosenBrand({})
         setChosenType({})
         setInfo([])
+        setUploadStatus('')
     }
 
     React.useEffect(()=> {
@@ -169,6 +173,9 @@ const CreateDevice = observer(({show, onHide}) => {
             </Form>
         </Modal.Body>
         <Modal.Footer>
+            <div>
+                {uploadStatus}
+            </div>
             <Button variant="outline-danger" onClick={onHide}>Закрыть</Button>
             <Button variant="outline-info" onClick={addDevice}>Добавить</Button>
         </Modal.Footer>
