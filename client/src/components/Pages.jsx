@@ -6,16 +6,15 @@ import { Context } from '..'
 const Pages = observer(() => {
     const {device} =  React.useContext(Context)
     const pageCount = Math.ceil(device.totalCount / device.limit)
-    const pages = []
-    for(let i=0; i<pageCount; i++){
-        pages.push(i + 1)
-    }
- 
+    const pages = Array(pageCount).fill().map((_, i) => i+1);
+
 
     return (
         <Pagination className="mt-3">
+
             {pages.map(page => 
                 <Pagination.Item
+                    activeLabel=""
                     key={page}
                     active={device.page === page}
                     onClick={()=> {
@@ -26,6 +25,7 @@ const Pages = observer(() => {
                     {page}
                 </Pagination.Item>    
             )}
+     
         </Pagination>
     )
 })

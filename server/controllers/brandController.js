@@ -1,3 +1,4 @@
+const e = require("cors")
 const { badRequest } = require("../error/apiError")
 const { Brand } = require("../models/models")
 
@@ -10,8 +11,16 @@ class BrandController {
         } catch (e) {
             return next(badRequest("Введенный бренд уже существует!"));
         }
+    }
 
-
+    async delete(req, res, next) {
+        try {
+            const {id} = req.body
+            const brand = await Brand.findByPk(id)
+            return res.json(await brand.destroy())
+        } catch (e) {
+            return next(badRequest("Не удалось найти удаляемый бренд или даному бренду принадлежат товары!"));
+        }
     }
 
     async getAll(req, res) {

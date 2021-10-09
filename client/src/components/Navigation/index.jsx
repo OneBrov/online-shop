@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
-import { ADMIN_ROUTE, LOGIN_ROUTE, SHOP_ROUTE } from '../../utils/consts'
+import { ADMIN_ROUTE, CATALOG_ROUTE, LOGIN_ROUTE, SHOP_ROUTE } from '../../utils/consts'
 import {observer} from 'mobx-react-lite'
 import { useHistory } from 'react-router-dom'
 
@@ -34,13 +34,13 @@ import cartIcon from '../../assets/shopping_cart.svg'
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
-                    <Nav.Link className="" href="/computers">Компьютеры</Nav.Link>
-                    <Nav.Link href="/phones">Смартфоны</Nav.Link>
-                    <Nav.Link href="/accessories">Аксессуары</Nav.Link>
+                    <Nav.Link className="" href={`${CATALOG_ROUTE}/computers`}>Компьютеры</Nav.Link>
+                    <Nav.Link href={`${CATALOG_ROUTE}/phones`}>Смартфоны</Nav.Link>
+                    <Nav.Link href={`${CATALOG_ROUTE}/accessories`}>Аксессуары</Nav.Link>
                 </Nav>
                 <Nav className={``}>
-                    <Nav.Link href="/сontact">Контакты</Nav.Link>
-                    <Nav.Link href="/purchaseHistory">История покупок</Nav.Link>
+                    <Nav.Link href="/contacts">Контакты</Nav.Link>
+                    <Nav.Link href="/purchases">История покупок</Nav.Link>
                     <Nav.Link className='d-flex' href="/cart">
                         Корзина 
                         <img className="ms-1" src={cartIcon} alt='' />

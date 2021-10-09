@@ -9,14 +9,17 @@ import styles from './Device.module.scss'
 import { useRating } from '../../hooks/useRating'
 import {useParams}  from 'react-router-dom'
 import { fetchOneDevice } from '../../http/deviceAPI'
-function Device() {
+
+import Rating from 'react-rating'
+import fullStar from '../../assets/fullStar.svg'
+import emptyStar from '../../assets/emptyStar.svg'
+
+const Device = () => {
     const [device, setDevice] = React.useState({info:[]})
     const {id} = useParams()
     React.useEffect(()=>{
         fetchOneDevice(id).then(data => setDevice(data))
     },[])
-
-    const rate = useRating(device.rating)
     return (
         <Container className="mt-5">
             <Row>
@@ -36,7 +39,12 @@ function Device() {
                             <h3> Описание </h3>
                             <h5> Рейтинг:
                                 <span className={`${styles.rating} fs-5 ms-2`}> 
-                                    {rate} {device.rating} 
+                                <Rating 
+                                    initialRating={device?.rating} 
+                                    fullSymbol={<img  src={fullStar} alt='Full star' />}
+                                    emptySymbol={<img src={emptyStar} alt='Empty Star' />}
+                                    />  
+                                    {device.rating} 
                                 </span> 
                             </h5>
                         </div>

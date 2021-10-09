@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/esm/Modal'
 import Button from 'react-bootstrap/esm/Button'
 import Form from 'react-bootstrap/esm/Form'
 import { createBrand } from '../../http/brandAPI'
-
+import { deleteBrand } from '../../http/brandAPI'
 const CreateBrand = ({show, onHide}) => {
     const [brand, setBrand] = React.useState('')
     const [uploadStatus, setUploadStatus] = React.useState('')
@@ -20,6 +20,7 @@ const CreateBrand = ({show, onHide}) => {
         const brandResponse = await createBrand({name:brand})
         setBrand('')
         setUploadStatus("Информация загружена!")
+      
       } catch (e) {
         // setUploadStatus(e)
         setUploadStatus(e.response?.data.message)
