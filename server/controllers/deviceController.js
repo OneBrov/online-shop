@@ -1,10 +1,13 @@
 const uuid = require('uuid')
 const path = require('path')
+const fs = require('fs')
 const {Device, DeviceInfo} = require('../models/models')
 const ApiError = require('../error/apiError')
+const { badRequest } = require("../error/apiError")
 
 class DeviceController {
 
+    // creating device in db
     async create(req, res, next){
         try {
             const {name, price, brandId, typeId, info} = req.body
@@ -31,6 +34,24 @@ class DeviceController {
         }
     }
 
+    //removing one device
+    async delete(req, res, next) {
+        try {
+            console.log("____---______");
+            const {id} = req.body
+            const device = await Device.findByPk(id)
+            console.log(device.img);
+            fs.unlink(path.resolve(__dirname, '..', 'static', device.img), (err)=>{
+                if (err) console.log(err);
+            })
+            return res.json(await device.destroy())
+        } catch (e) {
+            console.log(e);
+            return next(badRequest("Не удалось удалить устройство"));
+        }
+    }
+
+    // get request with offset option for pages
     async getAll(req, res) {
         let {brandId, typeId, limit, page} = req.query
         page = page || 1
@@ -50,6 +71,7 @@ class DeviceController {
         return res.json(devices)
     }
 
+    // get request for 1 device
     async getOne(req, res) {
         const {id} = req.params
         const device = await Device.findOne({
@@ -58,6 +80,8 @@ class DeviceController {
         })
         return res.json(device)
     }
+
+
 }
 
 module.exports = new DeviceController()

@@ -6,6 +6,7 @@ import UserStore from './store/UserStore';
 import DeviceStore from './store/DeviceStore';
 import TypeStore from './store/TypeStore';
 import BrandStore from './store/BrandStore';
+import CartStore from './store/CartStore';
 
 import './index.scss'
 
@@ -17,7 +18,8 @@ ReactDOM.render(
       user: new UserStore(),
       device: new DeviceStore(),
       type: new TypeStore(),
-      brand: new BrandStore()
+      brand: new BrandStore(),
+      cart: new CartStore()
     }}>
       <App />
     </Context.Provider>

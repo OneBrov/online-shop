@@ -10,7 +10,7 @@ const User = sequelize.define('user', {
 })
 
 const Cart = sequelize.define('cart', {
-
+   
 })
 
 const Device = sequelize.define('device', {
@@ -48,13 +48,13 @@ User.hasMany(Rating)
 Rating.belongsTo(User)
 
 User.belongsToMany(Device, { through: Cart })
-Device.belongsToMany(User, { through: Cart })
+Device.belongsToMany(User, { through: Cart, onDelete: 'cascade'})
 
-Type.hasMany(Device)
-Device.belongsTo(Type)
+Type.hasOne(Device, {onDelete: 'cascade'})
+Device.belongsTo(Type, {onDelete: 'cascade'})
 
-Brand.hasMany(Device)
-Device.belongsTo(Brand)
+Brand.hasOne(Device, {onDelete: 'cascade'})
+Device.belongsTo(Brand, {onDelete: 'cascade'})
 
 Device.hasMany(Rating)
 Rating.belongsTo(Device)

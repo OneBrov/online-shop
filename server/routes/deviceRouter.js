@@ -4,6 +4,7 @@ const DeviceRouter = require('../controllers/deviceController')
 const checkRole = require('../middleware/checkRoleMiddleware')
 
 router.post('/', checkRole("ADMIN"), DeviceRouter.create)
+router.delete('/', checkRole("ADMIN"), DeviceRouter.delete)
 router.get('/',    DeviceRouter.getAll)
 router.get('/:id', DeviceRouter.getOne)
 

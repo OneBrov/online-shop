@@ -5,12 +5,9 @@ import { useHistory } from 'react-router-dom'
 export const Purchases = () => {
     const history = useHistory()
     return (
-        <Container className="mt-5">
+        <Container className="mt-5 ">
             <Row className="h-100 d-flex flex-column justify-content-center">
                 <h2 className="text-center"> История покупок </h2>
-
-
-        
             </Row>
             <Row>
                 <p className="text-center"> Ваша история покупок пуста! Совершитее хотя бы одну, чтобы видеть вашу историю</p>

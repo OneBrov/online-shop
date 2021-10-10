@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Button from 'react-bootstrap/esm/Button'
 import { useHistory } from 'react-router-dom'
 import { DEVICE_ROUTE } from '../../utils/consts'
@@ -8,14 +8,17 @@ import fullStar from '../../assets/fullStar.svg'
 import emptyStar from '../../assets/emptyStar.svg'
 import styles from './DeviceItem.module.scss'
 import Image from 'react-bootstrap/esm/Image'
+import { addToCart, fetchCart } from '../../http/cartAPI'
+import { Context } from '../..'
 
 const DeviceItem = ({device}) => {
     const history = useHistory()
-    
-    const handleAddToCart = (e) => {
+    const {cart} = useContext(Context)
+    const handleAddToCart = async (e) => {
         e.cancelBubble = true;
         if (e.stopPropagation) e.stopPropagation();
-        console.log("added!");
+        await addToCart(device.id)
+        cart.setCart(await fetchCart())
     }
 
     const handleChangeRoute = (e) => {

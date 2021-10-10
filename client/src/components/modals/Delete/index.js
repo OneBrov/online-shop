@@ -2,6 +2,8 @@ import React from 'react'
 import { observer } from 'mobx-react-lite'
 import { Button, Form, Modal, Dropdown, Row } from 'react-bootstrap'
 
+
+//template func component, for deleting data by requests on server
 export const Delete = observer(({show, onHide, deleteItem, items, title, afterDelete}) => {
 
     const [item, setItem] = React.useState({})

@@ -20,6 +20,9 @@ const Device = () => {
     React.useEffect(()=>{
         fetchOneDevice(id).then(data => setDevice(data))
     },[])
+
+
+
     return (
         <Container className="mt-5">
             <Row>

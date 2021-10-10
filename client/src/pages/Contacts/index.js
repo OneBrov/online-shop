@@ -4,7 +4,7 @@ import { Container, Row } from 'react-bootstrap'
 export const Contacts = () => {
     return (
         <Container>
-            <Row  className="mt-3">
+            <Row  className="mt-5">
                 <h2 className="text-center">Контакты</h2>
             </Row>
             <Row className="mt-2">
