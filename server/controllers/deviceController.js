@@ -149,7 +149,8 @@ class DeviceController {
                 }, 
                 group: [  'device.id' ],
                 having: Sequelize.literal(`coalesce(avg("ratings"."rate"), 0) >= ${rating}`),
-                order: sortOption&&[ [
+                order: sortOption
+                && [ [
                     (sortOption === 'rating'
                     ? Sequelize.literal('rating') 
                     : sortOption),
