@@ -4,3 +4,8 @@ body {
     -moz-osx-font-smoothing: grayscale;
     background-color: #ECF9FF;
 }
+
+html {
+    overflow: -moz-scrollbars-vertical; 
+    overflow-y: scroll;
+}

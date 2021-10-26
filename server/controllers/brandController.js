@@ -23,6 +23,24 @@ class BrandController {
         }
     }
 
+    //update exist brand
+    async update(req, res, next) {
+        try {
+            const brand = req.body
+            console.log(brand);
+           
+            const updated = await Brand.update(
+                {name: brand.name}, 
+                {where: {id: brand.id}}
+            )
+            
+           
+            return res.json(updated)
+        } catch (e) {
+            return next(badRequest("Не удалось обновить данный бренд!"));
+        }
+    }
+
     async getAll(req, res) {
         const brands = await Brand.findAll()
         return res.json(brands)

@@ -19,7 +19,9 @@ class CartController {
 
     async delete(req, res, next) {
         try {
+            console.log("Deleting");
             const {deviceId} = req.body
+            console.log(deviceId);
             const userId  = req.user.id
             if (deviceId) {
                 const cartItem = await Cart.findOne({where: {userId: userId, deviceId: deviceId}})
@@ -33,7 +35,7 @@ class CartController {
 
     }
 
-    async getAll(req, res) {
+    async getAll(req, res, next) {
         try {
             const userId = req.user.id
             const cart = await Cart.findAll({where:{userId: userId}})

@@ -6,21 +6,58 @@ import Image from 'react-bootstrap/esm/Image'
 import Button from 'react-bootstrap/esm/Button'
 
 import styles from './Device.module.scss'
-import { useRating } from '../../hooks/useRating'
+
 import {useParams}  from 'react-router-dom'
-import { fetchOneDevice } from '../../http/deviceAPI'
+import { fetchOneDevice, rateDevice } from '../../http/deviceAPI'
 
 import Rating from 'react-rating'
 import fullStar from '../../assets/fullStar.svg'
 import emptyStar from '../../assets/emptyStar.svg'
+import { Context } from '../..'
+import { observer } from 'mobx-react-lite'
+import { OverlayTrigger, Tooltip } from 'react-bootstrap'
 
-const Device = () => {
+
+// add loading state
+const Device = observer(() => {
     const [device, setDevice] = React.useState({info:[]})
+    const [inCart, setInCart] = React.useState(false)
+    const [rateMessage, setRateMessage] = React.useState(
+        'Чтобы оценить устройство, просто кликните на одну из звезд!'
+    )
     const {id} = useParams()
+    const {cart} = React.useContext(Context)
+
+
+    console.log(cart.cart);
     React.useEffect(()=>{
         fetchOneDevice(id).then(data => setDevice(data))
     },[])
 
+    React.useEffect(()=>{
+        if (device?.id) {
+            setInCart(cart.checkInCart(device.id))
+        }
+     },[cart, cart.cart, device])
+
+    const handleAddToCart = async (e) => {
+        await cart.toggleItem(device.id)
+    }
+
+
+    const handleRate = async (value) => {
+        setRateMessage('Устройство оценено!')
+        //await rating set
+        await rateDevice(device.id, value)
+        // again fetching device for rerender rating
+        fetchOneDevice(id).then(data => setDevice(data))
+    }
+
+    const renderRatingTooltip = (props) => (
+        <Tooltip id="button-tooltip" {...props}>
+            {rateMessage}
+        </Tooltip>
+      );
 
 
     return (
@@ -37,26 +74,43 @@ const Device = () => {
                     />
                 </Col>
                 <Col  lg={8}>
+                   
                     <div className={`p-4 ${styles.descriptionBox} d-flex flex-column`}>
                         <div className="d-flex justify-content-between align-items-end">
                             <h3> Описание </h3>
+                            <OverlayTrigger
+                                placement="top-end"
+                                delay={{ show: 250, hide: 400 }}
+                                overlay={renderRatingTooltip}
+                            >
                             <h5> Рейтинг:
                                 <span className={`${styles.rating} fs-5 ms-2`}> 
+
                                 <Rating 
                                     initialRating={device?.rating} 
                                     fullSymbol={<img  src={fullStar} alt='Full star' />}
                                     emptySymbol={<img src={emptyStar} alt='Empty Star' />}
+                                    onClick={handleRate}
+                                    
                                     />  
-                                    {device.rating} 
+                                    <span className="ms-1">
+                                        {Number(device?.rating).toFixed(2)} 
+                                    </span>
+                                    
                                 </span> 
                             </h5>
+                            </OverlayTrigger>
                         </div>
-                        <p className="fs-5 p-2 overflow-auto mt-2">{device.description }</p>
+                        <p className="fs-5 p-2 overflow-auto mt-2">{device.deviceDescription }</p>
                         <div className="d-flex mt-auto align-items-end flex-column">
                             <p >Цена: <b className="ms-2">{device.price}  ₽</b></p>
-                            <Button className={`${styles.toCart} mt-auto`}>
-                                <span> Добавить в корзину </span>
-                            </Button>
+                            <Button 
+                                onClick={handleAddToCart} 
+                                variant={inCart? "success": "info"}
+                                className={styles.toCart}
+                            >
+                            <span> {inCart ? "Добавлено в корзину!" : "Добавить в корзину"}  </span>
+                    </Button>
                         </div>
                     </div>
                 </Col>
@@ -82,6 +136,6 @@ const Device = () => {
             </Row>
         </Container>
     )
-}
+})
 
 export default Device

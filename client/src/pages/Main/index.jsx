@@ -7,28 +7,30 @@ import { Context } from '../..';
 import Catalog from '../../components/Catalog';
 import DeviceList from '../../components/DeviceList';
 import Pages from '../../components/Pages';
+import { fetchCart } from '../../http/cartAPI';
 import { fetchDevices } from '../../http/deviceAPI';
 
 
 const Main = observer(() => {
-    const {device} = React.useContext(Context) 
+    const {device, cart} = React.useContext(Context) 
     React.useEffect(() => {
-        fetchDevices(device.typeId, null, device.page, device.limit).then(data =>{
+        fetchDevices(device.page, device.limit).then(data =>{
             console.log( device.page, device.limit)
             device.setDevices(data.rows)
             device.setTotalCount(data.count)
         })
+      
     }, [device, device.page, device.typeId])
 
 
     return (
             <Container>
             <Row>
-                <Col md={3}>
+                <Col md={4}>
                     <h4 >Категории товаров</h4>
                     <Catalog/>
                 </Col>
-                <Col md={9}>
+                <Col md={8}>
                     <h4>Список товаров</h4>
                     <DeviceList />
                     <Pages />

@@ -9,16 +9,20 @@ const User = sequelize.define('user', {
     role: {type: DataTypes.STRING, defaultValue: 'USER'}
 })
 
-const Cart = sequelize.define('cart', {
-   
+const Cart = sequelize.define('cart', {})
+
+const Purchase = sequelize.define('purchases', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement:true},
+    isIssued: {type: DataTypes.BOOLEAN, defaultValue: false},
+    count: {type: DataTypes.INTEGER, defaultValue: 1}
 })
 
 const Device = sequelize.define('device', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement:true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
     price: {type: DataTypes.INTEGER, allowNull: false},
-    rating: {type: DataTypes.INTEGER, defaultValue: 0},
-    img: {type: DataTypes.STRING, allowNull: false}
+    img: {type: DataTypes.STRING, allowNull: false},
+    description: {type: DataTypes.STRING, allowNull: true, defaultValue: ''}
 })
 
 const Type = sequelize.define('type', {
@@ -43,11 +47,30 @@ const DeviceInfo = sequelize.define('device_info', {
 })
 
 
+// User.belongsToMany(Device, 
+
+//     {   through: {
+//         model: Purchase,
+//         unique: false,
+//     },
+//     foreignKey: 'userId',  constraints: false, onDelete: 'cascade'}
+// )
+// Device.belongsToMany(User, 
+//     { through: {model: Purchase, unique: false}, foreignKey: 'Id', unique: false, constraints: false,onDelete: 'cascade'}
+// )
+
+User.hasMany(Purchase);
+Purchase.belongsTo(User);
+Device.hasMany(Purchase);
+Purchase.belongsTo(Device);
 
 User.hasMany(Rating)
 Rating.belongsTo(User)
 
-User.belongsToMany(Device, { through: Cart })
+Device.hasMany(Rating)
+Rating.belongsTo(Device)
+
+User.belongsToMany(Device, { through: Cart, onDelete: 'cascade'})
 Device.belongsToMany(User, { through: Cart, onDelete: 'cascade'})
 
 Type.hasOne(Device, {onDelete: 'cascade'})
@@ -56,8 +79,6 @@ Device.belongsTo(Type, {onDelete: 'cascade'})
 Brand.hasOne(Device, {onDelete: 'cascade'})
 Device.belongsTo(Brand, {onDelete: 'cascade'})
 
-Device.hasMany(Rating)
-Rating.belongsTo(Device)
 
 Device.hasMany(DeviceInfo, {as: 'info'})
 DeviceInfo.belongsTo(Device)
@@ -65,6 +86,7 @@ DeviceInfo.belongsTo(Device)
 module.exports = {
     User, 
     Cart, 
+    Purchase,
     Device, 
     Type, 
     Brand, 

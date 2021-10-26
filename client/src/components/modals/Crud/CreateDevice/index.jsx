@@ -1,17 +1,9 @@
 import React from 'react'
-import Modal from 'react-bootstrap/esm/Modal'
-import Button from 'react-bootstrap/esm/Button'
-import Form from 'react-bootstrap/esm/Form'
-import Dropdown from 'react-bootstrap/esm/Dropdown'
-import Row from 'react-bootstrap/esm/Row'
-import Col from 'react-bootstrap/esm/Col'
-import { Context } from '../..'
-import { observer } from 'mobx-react-lite'
-import { fetchTypes } from '../../http/typeAPI'
-import { fetchBrands } from '../../http/brandAPI'
-import { createDevice } from '../../http/deviceAPI'
+import { Form, Button, Dropdown, Row, Col } from 'react-bootstrap'
+import { Crud } from '..'
+import { Context } from '../../../..'
 
-const CreateDevice = observer(({show, onHide}) => {
+export const CreateDevice = ({show, onHide, updateItem, items, title, afterUpdate}) => {
     const {brand, type} = React.useContext(Context)
 
     const [name, setName] = React.useState('')
@@ -20,7 +12,7 @@ const CreateDevice = observer(({show, onHide}) => {
     const [chosenBrand, setChosenBrand] = React.useState({})
     const [chosenType, setChosenType] = React.useState({})
     const [info, setInfo] = React.useState([])
-    const [uploadStatus, setUploadStatus] = React.useState('')
+    const [description, setDescription] = React.useState('')
 
     const addInfo=() => {
         setInfo(prev => [...prev, {title:'', description:'', id: prev.length }])
@@ -38,24 +30,6 @@ const CreateDevice = observer(({show, onHide}) => {
         setImg(e.target.files[0])
     }
 
-    const addDevice = async () => {
-        const formData = new FormData()
-        formData.append('name', name)
-        formData.append('price',`${price}`)
-        formData.append('img', img)
-        formData.append('brandId', chosenBrand.id)
-        formData.append('typeId',  chosenType.id)
-        formData.append('info', JSON.stringify(info))
-         try {
-            setUploadStatus("Идет загрузка...")
-            await createDevice(formData)
-            setUploadStatus("Информация загружена!")
-            setTimeout(()=> { clearAll(); onHide() }, 500)
-         }  catch (e) {
-            alert(e.response.data.message)
-         }        
-    }
-
     const clearAll = () => {
         setName('')
         setPrice(0)
@@ -63,30 +37,31 @@ const CreateDevice = observer(({show, onHide}) => {
         setChosenBrand({})
         setChosenType({})
         setInfo([])
-        setUploadStatus('')
     }
 
-    React.useEffect(()=> {
-        if (show) {
-            fetchTypes().then(data => type.setTypes(data))
-            fetchBrands().then(data => brand.setBrands(data))
-        }
-    },[show])
+    const getItem = () => {
+        const formData = new FormData()
+        formData.append('name', name)
+        formData.append('price',`${price}`)
+        formData.append('description', description)
+        formData.append('img', img)
+        formData.append('brandId', chosenBrand.id)
+        formData.append('typeId',  chosenType.id)
+        formData.append('info', JSON.stringify(info))
+        return formData
+    }
     return (
-        <Modal
-            show={show}
-            onHide={onHide}
-            size="lg"
-            centered
-      >
-        <Modal.Header >
-          <Modal.Title id="contained-modal-title-vcenter">
-            Добавить устройство
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-            <Form>
-                <Dropdown className="mt-2">
+        <Crud 
+            show={show} 
+            onHide={onHide} 
+            changeItem={updateItem} 
+            title={title} 
+            afterChange={afterUpdate} 
+            item={getItem()}
+            setItem={clearAll}
+            crudType="create"
+        >
+             <Dropdown className="mt-2">
                     <Dropdown.Toggle>{chosenType.name || 'Выберите тип'}  </Dropdown.Toggle>
                     <Dropdown.Menu>
                         {type.types.map((t) => 
@@ -113,13 +88,14 @@ const CreateDevice = observer(({show, onHide}) => {
                         )}
                     </Dropdown.Menu>
                 </Dropdown>
+                <Form.Label  className="mt-2 d-block">Название</Form.Label>    
                 <Form.Control
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     className="mt-2"
                     placeholder={"Введите название устройства..."} 
                 />    
-
+                <Form.Label  className="d-block">Цена</Form.Label>   
                 <Form.Control
                     value={price}
                     onChange={(e) => setPrice(Number(e.target.value))}
@@ -127,7 +103,16 @@ const CreateDevice = observer(({show, onHide}) => {
                     placeholder={"Введите стоимость устройства..."} 
                     type="number"
                 />
-                <Form.Label  className="mt-2 d-block">Изображение устройства</Form.Label>    
+                <Form.Label  className="d-block">Описание</Form.Label>   
+                <Form.Control
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    className="mt-2"
+                    as="textarea"
+                    placeholder={"Введите описание устройства..."} 
+
+                />
+                <Form.Label  className="d-block">Изображение устройства</Form.Label>    
                 <Form.Control
                     onChange={selectFile}
                     className="d-block"
@@ -170,17 +155,6 @@ const CreateDevice = observer(({show, onHide}) => {
                     Добавить новое свойтсво
                 </Button>
 
-            </Form>
-        </Modal.Body>
-        <Modal.Footer>
-            <div>
-                {uploadStatus}
-            </div>
-            <Button variant="outline-danger" onClick={onHide}>Закрыть</Button>
-            <Button variant="outline-info" onClick={addDevice}>Добавить</Button>
-        </Modal.Footer>
-      </Modal>
+        </Crud>
     )
-})
-
-export default CreateDevice
+}

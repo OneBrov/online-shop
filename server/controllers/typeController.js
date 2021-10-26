@@ -23,6 +23,19 @@ class TypeController {
         }
     }
 
+    async update(req, res, next) {
+        try {
+            const type = req.body
+            const updated = await Type.update(
+                {name: type.name}, 
+                {where: {id: type.id}}
+            )
+            return res.json(updated)
+        } catch (e) {
+            return next(badRequest("Не удалось обновить данный тип!"));
+        }
+    }
+
     async getAll(req, res) {
         const types = await Type.findAll()
         return res.json(types)

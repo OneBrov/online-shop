@@ -9,6 +9,7 @@ import BrandStore from './store/BrandStore';
 import CartStore from './store/CartStore';
 
 import './index.scss'
+import PurchaseStore from './store/PurchaseStore';
 
 export const Context = createContext(null)
 
@@ -19,7 +20,8 @@ ReactDOM.render(
       device: new DeviceStore(),
       type: new TypeStore(),
       brand: new BrandStore(),
-      cart: new CartStore()
+      cart: new CartStore(),
+      purchase: new PurchaseStore()
     }}>
       <App />
     </Context.Provider>

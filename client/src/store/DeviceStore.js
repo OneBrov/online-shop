@@ -37,6 +37,7 @@ export default class DeviceStore {
 
     setDevices(devices){
         this._devices=devices
+        console.log(this._devices);
     }
 
     get devices() {

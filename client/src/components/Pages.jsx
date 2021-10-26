@@ -6,11 +6,12 @@ import { Context } from '..'
 const Pages = observer(() => {
     const {device} =  React.useContext(Context)
     const pageCount = Math.ceil(device.totalCount / device.limit)
+    console.log(pageCount);
     const pages = Array(pageCount).fill().map((_, i) => i+1);
 
 
     return (
-        <Pagination className="mt-3">
+        <Pagination className="mt-3 ms-3">
 
             {pages.map(page => 
                 <Pagination.Item

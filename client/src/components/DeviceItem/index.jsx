@@ -2,23 +2,38 @@ import React, { useContext } from 'react'
 import Button from 'react-bootstrap/esm/Button'
 import { useHistory } from 'react-router-dom'
 import { DEVICE_ROUTE } from '../../utils/consts'
-import { useRating } from '../../hooks/useRating'
+
 import Rating from 'react-rating'
 import fullStar from '../../assets/fullStar.svg'
 import emptyStar from '../../assets/emptyStar.svg'
 import styles from './DeviceItem.module.scss'
 import Image from 'react-bootstrap/esm/Image'
-import { addToCart, fetchCart } from '../../http/cartAPI'
+import { addToCart, fetchCart, removeFromCart } from '../../http/cartAPI'
 import { Context } from '../..'
+import { observer } from 'mobx-react-lite'
+import { rateDevice } from '../../http/deviceAPI'
 
-const DeviceItem = ({device}) => {
+export const DeviceItem = observer(({device}) => {
+
+    const [inCart, setInCart] = React.useState(false)
+
     const history = useHistory()
     const {cart} = useContext(Context)
+    
+    React.useEffect(()=>{
+       setInCart(cart.checkInCart(device.id))
+    },[cart, cart.cart, device])
+
     const handleAddToCart = async (e) => {
         e.cancelBubble = true;
         if (e.stopPropagation) e.stopPropagation();
-        await addToCart(device.id)
-        cart.setCart(await fetchCart())
+        cart.toggleItem(device.id)
+    }
+
+
+    const cancelBubble = (e) => {
+        e.cancelBubble = true;
+        if (e.stopPropagation) e.stopPropagation();
     }
 
     const handleChangeRoute = (e) => {
@@ -46,17 +61,22 @@ const DeviceItem = ({device}) => {
                 </div>
                 <div className="mb-0 d-flex flex-column align-items-end">
                     <p className="mb-0 float-end">Рейтинг:</p>
-                    <p className="fs-5 float-end mb-0">
+                    <p className="fs-5 float-end mb-0" onClick={cancelBubble}>
                         <Rating 
-                            initialRating={device.rating} 
+                            readonly
+                            initialRating={device.rating}
+                            
                             fullSymbol={<img  src={fullStar} alt='Full star' />}
                             emptySymbol={<img src={emptyStar} alt='Empty Star' />}
                         /> 
                     </p>
                 </div>
                 <div onClick={(e)=> handleAddToCart(e)}>
-                    <Button  className={`${styles.toCart} mt-auto `}>
-                            <span> Добавить в корзину </span>
+                    <Button  
+                        variant={inCart? "success": "info"}
+                        className={styles.toCart}
+                    >
+                            <span> {inCart ? "Добавлено в корзину!" : "Добавить в корзину"}  </span>
                     </Button>
                 </div>
 
@@ -64,6 +84,4 @@ const DeviceItem = ({device}) => {
  
         </div>
     )
-}
-
-export default DeviceItem
+})

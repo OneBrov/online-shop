@@ -13,10 +13,6 @@ export const authRoutes = [
     {
         path: ADMIN_ROUTE, 
         Component: Admin
-    }, 
-    {
-        path: CART_ROUTE,
-        Component: Cart
     }
 ]  // pages, for only auth. users
 
@@ -55,6 +51,10 @@ export const publicRoutes = [
         path: PURCHASES_ROUTE ,
         Component: Purchases
     },
+    {
+        path: CART_ROUTE,
+        Component: Cart
+    }
 
     
     
