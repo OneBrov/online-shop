@@ -13,12 +13,12 @@ class DeviceController {
     // creating device in db
     async create(req, res, next){
         try {
-            const {name, price, brandId, typeId, info, description} = req.body
+            const {name, price, brandId, typeId, info, description, stock} = req.body
             const {img} = req.files
             let fileName = uuid.v4() + ".jpg"
             img.mv(path.resolve(__dirname, '..', 'static', fileName))
 
-            const device = await Device.create({name, price, brandId, typeId, img:fileName, description})
+            const device = await Device.create({name, price, brandId, typeId, img:fileName, description, stock})
             
             if (info){
                 
@@ -163,7 +163,7 @@ class DeviceController {
         )
     
         // counting all correct devices
-        const count = await   Device.count({where: {...whereStatement}})
+        const count = await Device.count({where: {...whereStatement}})
         // devices.map((item) => console.log(item))
         return res.json({ count : count, rows: devices })
     }

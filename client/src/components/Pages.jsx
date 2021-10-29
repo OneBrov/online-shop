@@ -5,9 +5,16 @@ import { Context } from '..'
 
 const Pages = observer(() => {
     const {device} =  React.useContext(Context)
-    const pageCount = Math.ceil(device.totalCount / device.limit)
-    console.log(pageCount);
-    const pages = Array(pageCount).fill().map((_, i) => i+1);
+    const [pageCount, setPageCount] = React.useState(0)
+    const [pages, setPages] = React.useState([])
+
+    React.useEffect(()=>{
+        setPages(Array(pageCount).fill().map((_, i) => i+1))
+    },[device, device.devices, pageCount])
+
+    React.useEffect(()=>{
+        setPageCount(Math.ceil(device.totalCount / device.limit))
+    },[device.limit, device.totalCount, pageCount])
 
 
     return (

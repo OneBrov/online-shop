@@ -26,6 +26,7 @@ export const updateDevice = async (device) => {
     formData.append('brandId', device.brandId)
     formData.append('typeId',  device.typeId)
     formData.append('info', JSON.stringify(device.info))
+    formData.append('stock', `${device.stock}`)
     const {data} = await $authHost.put('api/device', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'

@@ -55,7 +55,7 @@ const Admin = observer(() => {
     console.log(device.devices);
     if (isLoading) return <Spinner />
     return (
-        <Container className="pt-5">
+        <Container className="pt-5 " >
             <div className={`mx-auto d-flex w-50 flex-column align-items-center p-4 ${styles.back}`}>
                 <h3>Панель администратора</h3>
 

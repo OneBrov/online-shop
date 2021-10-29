@@ -22,12 +22,6 @@ export const CatalogPage = observer(() => {
 
     },[type.types, id])
 
-    React.useEffect(()=>{
-        device.setDevices([])
-    },[])
-
-
-
     return (
         <Container>
             <Row >

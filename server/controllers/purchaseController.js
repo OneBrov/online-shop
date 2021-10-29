@@ -8,10 +8,30 @@ class PurchaseController {
     async create(req, res, next){
         const {deviceId, count} = req.body
         const userId = req.user.id
-        const device = await Device.findOne({where:{id:deviceId}})
+        const device = await Device.findOne({
+            where:{id:deviceId},
+            raw: true
+        })
+    
+
         if (!device) {
             return next(ApiError.internal('Добавляемый товар не найден!'))
         }
+        const stockCount  = device.stock - count
+        console.log(stockCount);
+
+        try {
+            await Device.update(
+                {stock : stockCount},
+                {where: {id : device.id}}
+            ) 
+        } catch (e) {
+            const error = e.errors[0]
+            console.log(error);
+            return next(badRequest(`Невозможно заказать такое количество ${device.name}! Доступный на складе запас равен ${device.stock}`))
+        }
+        
+    
         const purchase = await Purchase.create({deviceId, userId, count})
         return res.json(purchase)
     }

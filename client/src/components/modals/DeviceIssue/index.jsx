@@ -3,14 +3,23 @@ import { Alert, Button, Dropdown, Form } from 'react-bootstrap'
 import { fetchOnePurchase, updatePurchase } from '../../../http/purchaseAPI'
 import { Crud } from '../Crud'
 
+
+
+
 export const DeviceIssue = ({show, onHide}) => {
     const [purchaseKey, setPurchaseKey] = React.useState('') 
     const [purchase, setPurchase] = React.useState()
     const [isSuccess, setIsSuccess] = React.useState(false)
     const [newPurchaseStatus, setNewPurchaseStatus] = React.useState(false)
-    
 
     const [message, setMessage] = React.useState('')
+
+    const purchaseField = [
+        { label: 'Почта покупателя', value: purchase?.user?.email },
+        { label: 'Название устройства', value: purchase?.device?.name },
+        { label: 'Количество устройств', value: purchase?.count },
+        { label: 'Дата заказа', value: new Date(purchase?.createdAt).toLocaleString() },
+    ]
 
     React.useEffect(()=>{
         if (isSuccess) {
@@ -29,6 +38,9 @@ export const DeviceIssue = ({show, onHide}) => {
         setPurchase(p)
         setMessage('')
     }
+
+
+
     console.log(newPurchaseStatus);
     console.log(purchase);
 
@@ -69,12 +81,7 @@ export const DeviceIssue = ({show, onHide}) => {
             {purchase 
             &&  
             <>
-                {[
-                    { label: 'Почта покупателя', value: purchase?.user?.email },
-                    { label: 'Название устройства', value: purchase?.device?.name },
-                    { label: 'Количество устройств', value: purchase?.count },
-                    { label: 'Дата заказа', value: new Date(purchase?.createdAt).toLocaleString() },
-                ].map((item, it) => 
+                {purchaseField.map((item, it) => 
                     <div key={it}>
                         <Form.Label>{item.label}</Form.Label>
                         <Form.Control disabled value={item.value} />
@@ -88,6 +95,7 @@ export const DeviceIssue = ({show, onHide}) => {
                     type='checkbox'
                     label={`Товар выдан`}
                     size="lg"
+                    id="issueCheck"
                     value={newPurchaseStatus}
                     onClick={()=>setNewPurchaseStatus(true) }
                 />

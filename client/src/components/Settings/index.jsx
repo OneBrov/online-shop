@@ -27,6 +27,7 @@ export const Settings = observer(({
     const [isDesc, setIsDesc] = React.useState(false)
 
     React.useEffect(()=>{
+        device.setDevices([])
         setLoading(true)
         fetchDevices(
             device.page, 
@@ -39,10 +40,13 @@ export const Settings = observer(({
             minRating, 
             sortOption,
             isDesc
-        ).then(data => device.setDevices(data.rows)).finally(
+        ).then(data => {
+            device.setDevices(data.rows)
+            device.setTotalCount(data.count)
+        }).finally(
             setLoading(false)
         )
-    },[name, minPrice, maxPrice, selectedBrands, minRating, device, typeId, setLoading, sortOption, isDesc])
+    },[name, minPrice, maxPrice, selectedBrands, minRating, device, typeId, setLoading, sortOption, isDesc, device.page])
 
 
 

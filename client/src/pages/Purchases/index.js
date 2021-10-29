@@ -56,7 +56,7 @@ export const Purchases = () => {
                                 {devices.map((device, it) => 
                                     <Col key={it} md={9} className="m-auto mt-2">
                                         <div className="d-flex justify-content-between my-3" >
-                                            <h5>Статус покупки: 
+                                            <h5>Статус заказа: 
                                                 <Alert  className="d-inline ms-2" variant={device.isIssued ? 'success' : 'warning'}>
                                                     {device.isIssued? ' Выдан' : ' Не выдан'}
                                                 </Alert> 

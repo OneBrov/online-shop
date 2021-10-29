@@ -13,6 +13,7 @@ export const CreateDevice = ({show, onHide, updateItem, items, title, afterUpdat
     const [chosenType, setChosenType] = React.useState({})
     const [info, setInfo] = React.useState([])
     const [description, setDescription] = React.useState('')
+    const [stock, setStock] = React.useState(1)
 
     const addInfo=() => {
         setInfo(prev => [...prev, {title:'', description:'', id: prev.length }])
@@ -30,6 +31,15 @@ export const CreateDevice = ({show, onHide, updateItem, items, title, afterUpdat
         setImg(e.target.files[0])
     }
 
+    const changeStock = e => {
+        let value = Number(e.target.value)
+        console.log(value);
+        if (value < 1) {
+            value = 1
+        }
+        setStock(value)
+    }
+
     const clearAll = () => {
         setName('')
         setPrice(0)
@@ -37,6 +47,8 @@ export const CreateDevice = ({show, onHide, updateItem, items, title, afterUpdat
         setChosenBrand({})
         setChosenType({})
         setInfo([])
+        setStock(1)
+        setDescription('')
     }
 
     const getItem = () => {
@@ -47,6 +59,7 @@ export const CreateDevice = ({show, onHide, updateItem, items, title, afterUpdat
         formData.append('img', img)
         formData.append('brandId', chosenBrand.id)
         formData.append('typeId',  chosenType.id)
+        formData.append('stock',  stock)
         formData.append('info', JSON.stringify(info))
         return formData
     }
@@ -110,6 +123,15 @@ export const CreateDevice = ({show, onHide, updateItem, items, title, afterUpdat
                     className="mt-2"
                     as="textarea"
                     placeholder={"Введите описание устройства..."} 
+
+                />
+                <Form.Label  className="d-block">Количество устройств</Form.Label>   
+                <Form.Control
+                    value={stock}
+                    onChange={changeStock}
+                    className="mt-2"
+                    type="number"
+                    placeholder={"Введите количество устройств на складе..."} 
 
                 />
                 <Form.Label  className="d-block">Изображение устройства</Form.Label>    

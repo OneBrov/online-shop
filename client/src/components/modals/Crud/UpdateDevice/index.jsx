@@ -120,7 +120,7 @@ export const UpdateDevice = ({show, onHide, updateItem, items, brands = [], type
                         placeholder={"Введите цену..."} 
                     />    
                 </div>
-                <div className="d-flex mt-2 justify-content-between">
+                <div className="d-flex justify-content-between">
                 <b className="mt-auto me-5">Описание устройства </b>
                 <Form.Control
                     value={item.description}
@@ -130,6 +130,18 @@ export const UpdateDevice = ({show, onHide, updateItem, items, brands = [], type
                     placeholder={"Введите описание устройства..."} 
 
                 />
+                </div>
+
+                <div className="d-flex justify-content-between mt-2">
+                    <b className="mt-auto me-5">Количество усройств </b>
+                    <Form.Control
+                        className="w-50"
+                        value={item.stock}
+                        type="number"
+                        min="1"
+                        onChange={(e) => setItem(prev => {return {...prev, stock: e.target.value}})}
+                        placeholder={"Введите количество устройств..."} 
+                    />    
                 </div>
                
                 <div className="d-flex mt-2 justify-content-between">

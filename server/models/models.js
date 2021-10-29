@@ -20,10 +20,11 @@ const Purchase = sequelize.define('purchases', {
 const Device = sequelize.define('device', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement:true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
-    price: {type: DataTypes.INTEGER, allowNull: false},
+    price: {type: DataTypes.INTEGER, allowNull: false, validate : { min: 0 } } ,
     img: {type: DataTypes.STRING, allowNull: false},
-    description: {type: DataTypes.STRING, allowNull: true, defaultValue: ''}
-})
+    description: {type: DataTypes.STRING, allowNull: true, defaultValue: ''},
+    stock: {type: DataTypes.INTEGER, allowNull: false, validate : { min: 0 } }
+}, )
 
 const Type = sequelize.define('type', {
     id :{type: DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
@@ -59,16 +60,16 @@ const DeviceInfo = sequelize.define('device_info', {
 //     { through: {model: Purchase, unique: false}, foreignKey: 'Id', unique: false, constraints: false,onDelete: 'cascade'}
 // )
 
-User.hasMany(Purchase);
-Purchase.belongsTo(User);
-Device.hasMany(Purchase);
-Purchase.belongsTo(Device);
+User.hasMany(Purchase, {onDelete: 'CASCADE'});
+Purchase.belongsTo(User, {onDelete: 'CASCADE'});
+Device.hasMany(Purchase, {onDelete: 'CASCADE'});
+Purchase.belongsTo(Device, {onDelete: 'CASCADE'});
 
-User.hasMany(Rating)
-Rating.belongsTo(User)
+User.hasMany(Rating, {onDelete: 'CASCADE'})
+Rating.belongsTo(User, {onDelete: 'CASCADE'})
 
-Device.hasMany(Rating)
-Rating.belongsTo(Device)
+Device.hasMany(Rating, {onDelete: 'CASCADE'})
+Rating.belongsTo(Device, {onDelete: 'CASCADE'})
 
 User.belongsToMany(Device, { through: Cart, onDelete: 'cascade'})
 Device.belongsToMany(User, { through: Cart, onDelete: 'cascade'})
@@ -80,8 +81,8 @@ Brand.hasOne(Device, {onDelete: 'cascade'})
 Device.belongsTo(Brand, {onDelete: 'cascade'})
 
 
-Device.hasMany(DeviceInfo, {as: 'info'})
-DeviceInfo.belongsTo(Device)
+Device.hasMany(DeviceInfo, {as: 'info', onDelete: 'CASCADE'})
+DeviceInfo.belongsTo(Device, {onDelete: 'CASCADE'})
 
 module.exports = {
     User, 
