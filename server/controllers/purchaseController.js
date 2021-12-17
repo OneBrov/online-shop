@@ -38,7 +38,6 @@ class PurchaseController {
 
     async update(req, res, next) {
         try {
-            console.log('aboba');
             const purchase = req.body
             const updated = await Purchase.update(
                 {isIssued: purchase.isIssued}, 
@@ -70,9 +69,9 @@ class PurchaseController {
     async getAll(req, res, next) {
         try {
             const userId = req.user.id
-            console.log("____________________________");
-        const purchase = await Purchase.findAll({ where: {userId: userId} })
-            console.log("------------------");
+            // console.log("____________________________");
+        const purchase = await Purchase.findAll({ where: {userId: userId}, order: [["id", "DESC"]] })
+            // console.log("------------------");
             return res.json(purchase)
         } catch (e) {
             console.log(e);
@@ -90,11 +89,10 @@ class PurchaseController {
                     { model: User  }
                 ],
             })
-            console.log('aboba');
             return res.json(purchase)
         } catch (e) {
             console.log(e);
-            return next(ApiError.internal(`Не удалось найти покупку с введенным кодом!`))
+            return next(ApiError.badRequest(`Не удалось найти покупку с введенным кодом!`))
         }
 
     }

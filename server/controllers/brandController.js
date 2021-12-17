@@ -19,7 +19,7 @@ class BrandController {
             const brand = await Brand.findByPk(id)
             return res.json(await brand.destroy())
         } catch (e) {
-            return next(badRequest("Не удалось найти удаляемый бренд или даному бренду принадлежат товары!"));
+            return next(badRequest("Не удалось найти удаляемый бренд или данному бренду принадлежат товары!"));
         }
     }
 

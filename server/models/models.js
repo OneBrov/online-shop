@@ -9,7 +9,24 @@ const User = sequelize.define('user', {
     role: {type: DataTypes.STRING, defaultValue: 'USER'}
 })
 
-const Cart = sequelize.define('cart', {})
+const Cart = sequelize.define('cart', {
+    deviceId: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: 'device',
+            key: 'id',
+          },
+        onDelete: 'cascade'
+    },
+    userId: {
+      type: DataTypes.INTEGER,
+      references: {
+          model: 'user',
+          key: 'id',
+        },
+      onDelete: 'cascade'
+    },
+})
 
 const Purchase = sequelize.define('purchases', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement:true},
@@ -38,27 +55,17 @@ const Brand = sequelize.define('brand', {
 
 const Rating = sequelize.define('rating', {
     id : {type: DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
-    rate: {type: DataTypes.INTEGER, allowNull:false}
+    rate: {type: DataTypes.INTEGER, allowNull:false},
+    
 })
 
 const DeviceInfo = sequelize.define('device_info', {
     id : {type: DataTypes.INTEGER, primaryKey:true, autoIncrement:true},
     title: {type: DataTypes.STRING, allowNull:false},
-    description: {type: DataTypes.STRING, allowNull:false}
+    description: {type: DataTypes.STRING, allowNull:false},
+  
+
 })
-
-
-// User.belongsToMany(Device, 
-
-//     {   through: {
-//         model: Purchase,
-//         unique: false,
-//     },
-//     foreignKey: 'userId',  constraints: false, onDelete: 'cascade'}
-// )
-// Device.belongsToMany(User, 
-//     { through: {model: Purchase, unique: false}, foreignKey: 'Id', unique: false, constraints: false,onDelete: 'cascade'}
-// )
 
 User.hasMany(Purchase, {onDelete: 'CASCADE'});
 Purchase.belongsTo(User, {onDelete: 'CASCADE'});
@@ -71,15 +78,14 @@ Rating.belongsTo(User, {onDelete: 'CASCADE'})
 Device.hasMany(Rating, {onDelete: 'CASCADE'})
 Rating.belongsTo(Device, {onDelete: 'CASCADE'})
 
-User.belongsToMany(Device, { through: Cart, onDelete: 'cascade'})
-Device.belongsToMany(User, { through: Cart, onDelete: 'cascade'})
+User.belongsToMany(Device, { through: Cart, onDelete: 'CASCADE', hooks: true, })
+Device.belongsToMany(User, { through: Cart, onDelete: 'CASCADE', hooks: true, })
 
-Type.hasOne(Device, {onDelete: 'cascade'})
-Device.belongsTo(Type, {onDelete: 'cascade'})
+Type.hasOne(Device, {onDelete: 'CASCADE'})
+Device.belongsTo(Type, {onDelete: 'CASCADE'})
 
-Brand.hasOne(Device, {onDelete: 'cascade'})
-Device.belongsTo(Brand, {onDelete: 'cascade'})
-
+Brand.hasOne(Device, {onDelete: 'restrict'})
+Device.belongsTo(Brand, {onDelete: 'restrict'})
 
 Device.hasMany(DeviceInfo, {as: 'info', onDelete: 'CASCADE'})
 DeviceInfo.belongsTo(Device, {onDelete: 'CASCADE'})

@@ -6,8 +6,7 @@ class CartController {
     async add(req, res, next){
         const {deviceId} = req.body
         const userId = req.user.id
-        console.log("-_-______________________________________________");
-        console.log(userId);
+        //console.log(userId);
         const device = await Device.findOne({where:{id:deviceId}})
         if (!device) {
             return next(ApiError.internal('Добавляемый товар не найден!'))
@@ -19,9 +18,8 @@ class CartController {
 
     async delete(req, res, next) {
         try {
-            console.log("Deleting");
             const {deviceId} = req.body
-            console.log(deviceId);
+            //console.log(deviceId);
             const userId  = req.user.id
             if (deviceId) {
                 const cartItem = await Cart.findOne({where: {userId: userId, deviceId: deviceId}})

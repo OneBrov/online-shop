@@ -4,7 +4,6 @@ const router = new Router()
 const checkRole = require('../middleware/checkRoleMiddleware')
 const authMiddleware = require('../middleware/authMiddleware')
 
-
 router.post('/', authMiddleware, PurchaseController.create)
 router.get('/' , authMiddleware, PurchaseController.getAll)
 router.get('/:id', checkRole("ADMIN"), PurchaseController.getOne)

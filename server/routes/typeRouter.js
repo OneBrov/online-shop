@@ -8,6 +8,4 @@ router.delete('/', checkRole("ADMIN"), TypeController.delete)
 router.put('/', checkRole("ADMIN"), TypeController.update)
 router.get('/',  TypeController.getAll)
 
-
-
 module.exports = router

@@ -21,7 +21,6 @@ class DeviceController {
             const device = await Device.create({name, price, brandId, typeId, img:fileName, description, stock})
             
             if (info){
-                
                 let parsedInfo = JSON.parse(info)
                 parsedInfo.forEach(i => {
                     DeviceInfo.create({
@@ -100,8 +99,8 @@ class DeviceController {
     // get request with offset option for pages
     async getPage(req, res) {
         let {limit, page, name, minPrice, maxPrice, brands, types, rating, sortOption, isDesc} = req.query
-        console.log("Setts------_____--------");
-        console.log(limit, page, name, minPrice, maxPrice, brands, types, rating, sortOption, isDesc);
+        // console.log("Setts------_____--------");
+        // console.log(limit, page, name, minPrice, maxPrice, brands, types, rating, sortOption, isDesc);
         
         const whereStatement = {}
         if (name) {
@@ -136,7 +135,7 @@ class DeviceController {
                     'typeId',
                     'brandId',
                     [
-                        Sequelize.fn("avg", Sequelize.col("ratings.rate")), "rating",
+                        Sequelize. Sequelize.fn("avg", Sequelize.col("ratings.rate")), "rating",
                     ],
                 ],
                 include:[ {
@@ -147,12 +146,12 @@ class DeviceController {
                 where: {
                     ...whereStatement,
                 }, 
-                group: [  'device.id' ],
+                group: [ 'device.id' ],
                 having: Sequelize.literal(`coalesce(avg("ratings"."rate"), 0) >= ${rating}`),
                 order: sortOption
                 && [ [
                     (sortOption === 'rating'
-                    ? Sequelize.literal('rating') 
+                    ? Sequelize.literal(`coalesce(avg("ratings"."rate"), 0)`) 
                     : sortOption),
                     (isDesc==='true' ? 'DESC' : 'ASC')
                 ]],
@@ -200,32 +199,31 @@ class DeviceController {
             ],
             group: [  'device.id', 'info.deviceId','info.id'],
         })
-        const test = await Device.findOne({
-            include:[
-                {model:DeviceInfo,  as: 'info'},
-            ],
-            attributes : [
-                'id',
-                'name',
-                'price',
-                'img',
-                ['description' , 'deviceDescription'],
-                'typeId',
-                'brandId',
-                'createdAt',
-                'info.title',
-                'info.description'
-            ],
-            where: {id},
-        })
-        console.log(test.dataValues);
+        // const test = await Device.findOne({
+        //     include:[
+        //         {model:DeviceInfo,  as: 'info'},
+        //     ],
+        //     attributes : [
+        //         'id',
+        //         'name',
+        //         'price',
+        //         'img',
+        //         ['description' , 'deviceDescription'],
+        //         'typeId',
+        //         'brandId',
+        //         'createdAt',
+        //         'info.title',
+        //         'info.description'
+        //     ],
+        //     where: {id},
+        // })
+        // console.log(test.dataValues);
        
         return res.json(device)
     }
 
     //create new rating to device or update previous rating from user
     async createRating(req, res) {
-        console.log("_______________Aboba--------------------------------");
         const {id} = req.params
         const {rating} = req.body
         const userId = req.user.id

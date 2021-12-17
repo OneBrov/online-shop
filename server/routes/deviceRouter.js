@@ -13,8 +13,4 @@ router.get('/all', DeviceRouter.getAll)
 router.get('/',    DeviceRouter.getPage)
 router.get('/:id', DeviceRouter.getOne)
 
-
-
-
-
 module.exports = router

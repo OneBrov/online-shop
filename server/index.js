@@ -17,6 +17,12 @@ app.use(express.static(path.resolve(__dirname, 'static')))
 app.use(fileUpload({}))
 app.use('/api', router)
 
+//Клиетская часть приложения 
+app.use(express.static(path.join(__dirname,  "client", "build")));
+
+app.use((req, res, next) => {
+    res.sendFile(path.join(__dirname,  "client", "build", "index.html"));
+});
 
 // Обработчик ошибок
 app.use(errorHandler)
