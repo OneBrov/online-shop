@@ -62,7 +62,7 @@ const App = observer (() => {
       //   fetchCart().then((data)=> cart.setCart(data))
       // }
  
-  } , [brand, cart, type, user]) 
+  } , [user, type, brand, device, cart]) 
 
   if (loading) {
     return <Spinner animation={"grow"} />

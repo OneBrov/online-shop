@@ -30,7 +30,6 @@ export const DeviceItem = observer(({device}) => {
         cart.toggleItem(device.id)
     }
 
-
     const cancelBubble = (e) => {
         e.cancelBubble = true;
         if (e.stopPropagation) e.stopPropagation();

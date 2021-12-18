@@ -24,10 +24,6 @@ export default class CartStore {
         this.setCart(await fetchCart())
     }
 
-    
-
-
-
     get cart() {
         return this._cart
     }

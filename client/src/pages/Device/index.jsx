@@ -66,14 +66,14 @@ const Device = observer(() => {
                 <h1 className="ms-3"> <b>{device.name}</b> </h1>
             </Row>
             <Row>
-                <Col className="mb-4" lg={4}>
+                <Col  className="mb-4" lg={4}>
                     <Image 
                         className={`m-auto d-block ${styles.rounded}`} 
                         width={300} height={300} 
                         src={device.img && (process.env.REACT_APP_API_URL + device.img)}  
                     />
                 </Col>
-                <Col  lg={8}>
+                <Col lg={8}>
                    
                     <div className={`p-4 ${styles.descriptionBox} d-flex flex-column`}>
                         <div className="d-flex justify-content-between align-items-end">
@@ -96,7 +96,6 @@ const Device = observer(() => {
                                     <span className="ms-1">
                                         {Number(device?.rating).toFixed(2)} 
                                     </span>
-                                    
                                 </span> 
                             </h5>
                             </OverlayTrigger>
@@ -115,7 +114,7 @@ const Device = observer(() => {
                     </div>
                 </Col>
             </Row>
-            <Row className="px-2">
+            <Row className="px-2 mt-3">
                 <div className={`p-4 ${styles.descriptionBox} d-flex flex-column h-100`}>
                     <h3> Характеристики </h3>
                     {device.info.map( (info, id)=> 

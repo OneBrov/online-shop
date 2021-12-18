@@ -5,11 +5,10 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import styles from './Catalog.module.scss'
 import { useHistory } from 'react-router'
 
-
 const CatalogTypes = observer( () => {
-    const {type, device} = React.useContext(Context)
+    const {type} = React.useContext(Context)
     const history = useHistory()
-    console.log(device.typeId)
+  
     return (
         <div className={`d-flex flex-column ${styles.catalog}`}>
             {type.types.map((t) =>

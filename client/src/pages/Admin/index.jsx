@@ -9,7 +9,6 @@ import { createType, deleteType, fetchTypes, updateType } from '../../http/typeA
 import { createDevice, deleteDevice, fetchAllDevices, fetchDevices, updateDevice } from '../../http/deviceAPI'
 import { Spinner } from 'react-bootstrap'
 import { DeviceIssue } from '../../components/modals/DeviceIssue'
-import { Row, Col } from 'react-bootstrap'
 import { CreateBrand } from '../../components/modals/Crud/CreateBrand'
 import { CreateDevice } from '../../components/modals/Crud/CreateDevice'
 import { CreateType } from '../../components/modals/Crud/CreateType'
@@ -21,6 +20,7 @@ import { UpdateType } from '../../components/modals/Crud/UpdateType'
 import { UpdateDevice } from '../../components/modals/Crud/UpdateDevice'
 
 const Admin = observer(() => {
+    
     const [isLoading, setIsLoading] = React.useState(true)
    
     //delete actions
@@ -42,6 +42,7 @@ const Admin = observer(() => {
 
     const {brand, type, device} = React.useContext(Context)
     
+
     React.useEffect(()=>{
         const fetching = async () => {
             setIsLoading(true)
@@ -55,10 +56,9 @@ const Admin = observer(() => {
     console.log(device.devices);
     if (isLoading) return <Spinner />
     return (
-        <Container className="pt-5 " >
+        <Container className="pt-5"  >
             <div className={`mx-auto d-flex w-50 flex-column align-items-center p-4 ${styles.back}`}>
                 <h3>Панель администратора</h3>
-
                     <Button  
                         variant="primary"
                         className={`mt-3 w-100 `} 
@@ -139,9 +139,6 @@ const Admin = observer(() => {
                         Удалить бренд
                     </Button>
 
-
-
-
                 <DeviceIssue 
                     show={deviceIssueVisible}
                     onHide={() => setDeviceIssueVisible(false) }
@@ -172,10 +169,6 @@ const Admin = observer(() => {
                     afterUpdate={async () => type.setTypes(await fetchTypes())}
                 />
 
-               
-                
-
-     
                 <UpdateDevice 
                     title="Устройство"
                     show={deviceUpdateVisible} 

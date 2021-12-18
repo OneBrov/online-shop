@@ -6,6 +6,9 @@ body {
 }
 
 html {
-    overflow: -moz-scrollbars-vertical; 
-    overflow-y: scroll;
+    overflow-y:scroll;
+}
+
+a {
+    text-decoration: none;
 }

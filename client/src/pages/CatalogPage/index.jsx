@@ -25,19 +25,18 @@ export const CatalogPage = observer(() => {
     return (
         <Container>
             <Row >
-                <Col xs="4" >
+                <Col md="4" sm="12" >
                     {typeId && 
                         <Settings typeId={typeId} setLoading={setIsLoading} />
                     }
-                    
                 </Col>
-                <Col xs="8" >
+                <Col xs="12" sm="12" md="8" >
                     <h4>Устройства категории: {id} </h4>
                     {isLoading 
                         ? <Spinner animation="grow" />
                         : <> 
                             {device.devices.length > 0
-                            ?<DeviceList />
+                            ? <DeviceList />
                             : <Alert variant="warning">Товары в данной категории отсутсвуют!</Alert>
                             }
                             

@@ -5,7 +5,6 @@ import { Crud } from '..'
 export const CreateBrand = ({show, onHide, updateItem, items, title, afterUpdate}) => {
     const [item, setItem] = React.useState("")
     
-
     return (
         <Crud 
             show={show} 

@@ -38,6 +38,7 @@ export const Crud = observer(({
         onHide={onHide}
         size="lg"
         centered
+        className=""
       >
         <Modal.Header >
           <Modal.Title id="contained-modal-title-vcenter">

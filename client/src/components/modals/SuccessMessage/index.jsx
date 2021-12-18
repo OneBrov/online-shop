@@ -27,7 +27,6 @@ export const SuccessMessage = ({
  
         </Modal.Body>
         <Modal.Footer>
-    
             <Button variant="outline-primary" onClick={()=> history.push('/')}>На главную</Button>
             <Button variant="primary" onClick={() => history.push('/purchases')}>На страницу заказов</Button>
         </Modal.Footer>

@@ -2,9 +2,7 @@ import {makeAutoObservable} from "mobx";
  
 export default class BrandStore {
     constructor() {
-        this._brands = [ 
-
-        ]
+        this._brands = []
         makeAutoObservable(this)
     }
 

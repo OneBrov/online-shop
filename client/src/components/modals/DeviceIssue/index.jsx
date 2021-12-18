@@ -39,18 +39,20 @@ export const DeviceIssue = ({show, onHide}) => {
         setMessage('')
     }
 
-
-
-    console.log(newPurchaseStatus);
-    console.log(purchase);
-
+    const  handleChangeStatus = async (p) => {
+        if (newPurchaseStatus !== true) {
+            setMessage('Вы не изменили статус заказа!')
+            return
+        }
+        await updatePurchase(p)
+    }
 
     return (
         <Crud
             show={show} 
             onHide={onHide} 
-            changeItem={updatePurchase} 
-            afterChange={()=> setIsSuccess(true)} 
+            changeItem={handleChangeStatus} 
+            afterChange={()=>setIsSuccess(true)} 
             item={{...purchase, isIssued: newPurchaseStatus}}
             setItem={(val) => { setPurchase(val); setNewPurchaseStatus(false) }}
             crudType="issue"
@@ -72,7 +74,7 @@ export const DeviceIssue = ({show, onHide}) => {
                 Найти покупку
             </Button>
             <hr/>
-            {isSuccess 
+            {isSuccess&&!message.length
             &&  <Alert variant="success">
                     Товар успешно выдан!
                 </Alert>

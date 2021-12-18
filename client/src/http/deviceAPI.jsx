@@ -2,7 +2,7 @@ import { $authHost, $host } from ".";
 
 
 export const rateDevice = async (id, rating) => {
-    console.log(rating);
+    //console.log(rating);
     const {data} = await $authHost.post(`api/device/rating/${id}`, {rating : rating} ) 
 }
 

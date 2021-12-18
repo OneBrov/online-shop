@@ -9,13 +9,15 @@ import { Contacts } from "./pages/Contacts"
 import { CatalogPage } from "./pages/CatalogPage"
 import { Purchases } from "./pages/Purchases"
 
+// pages, for only auth. users
 export const authRoutes = [ 
     {
         path: ADMIN_ROUTE, 
         Component: Admin
     }
-]  // pages, for only auth. users
+]  
 
+// pages, for all users
 export const publicRoutes = [
     {
         path: SHOP_ROUTE, 
@@ -58,4 +60,4 @@ export const publicRoutes = [
 
     
     
-]  // pages, for all users
+]  

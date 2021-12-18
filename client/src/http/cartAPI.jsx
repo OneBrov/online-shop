@@ -2,7 +2,7 @@ import { $authHost, $host } from ".";
 
 
 export const addToCart = async (deviceId) => {
-    console.log("addToCart" + deviceId);
+    //console.log("addToCart" + deviceId);
     const {data} = await $authHost.post('api/cart', {deviceId})
     return data
 }

@@ -11,7 +11,6 @@ const sortOptions = [
     {label: 'Дате выхода', value: "createdAt"},
 ]
 
-
 export const Settings = observer(({
     typeId, setLoading
 }) => {

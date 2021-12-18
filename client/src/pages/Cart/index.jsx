@@ -11,7 +11,7 @@ import { SuccessMessage } from '../../components/modals/SuccessMessage'
 
 const Cart = observer(() => {
     const history = useHistory()
-    const {cart, user, device} = useContext(Context)
+    const {cart, user} = useContext(Context)
     const [isLoading, setIsLoading] = React.useState(true)
     const [devices, setDevices] = React.useState([])
     const [message, setMessage] = React.useState('')
@@ -65,8 +65,7 @@ const Cart = observer(() => {
         } catch (e) {
             setMessage( e.message )
            return
-        }
-        
+        }  
         try {
             await Promise.all(
                 devices.map( device =>
@@ -86,6 +85,7 @@ const Cart = observer(() => {
         )
         setIsSuccess(true)
         setDevices([])
+    
     }
 
     const handleCount = (id, value) => {
@@ -114,7 +114,7 @@ const Cart = observer(() => {
             : !cart.cart.length
                 ?  <Row>
                         <p className="text-center"> Ваша корзина пуста! Добавьте что-нибудь в вашу корзину, чтобы увидеть ее содержимое</p>
-                        <Button className="w-25 m-auto" onClick={()=>history.push('/')} size="lg" variant="info" >
+                        <Button  className=" m-auto" onClick={()=>history.push('/')} size="lg" variant="info" >
                             Вернуться к покупкам
                         </Button>
                     </Row>

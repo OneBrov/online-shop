@@ -34,8 +34,8 @@ export const CreateDevice = ({show, onHide, updateItem, items, title, afterUpdat
     const changeStock = e => {
         let value = Number(e.target.value)
         console.log(value);
-        if (value < 1) {
-            value = 1
+        if (value < 0) {
+            value = 0
         }
         setStock(value)
     }

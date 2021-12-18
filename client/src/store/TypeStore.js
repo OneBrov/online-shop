@@ -2,8 +2,7 @@ import {makeAutoObservable} from "mobx";
  
 export default class TypeStore {
     constructor() {
-        this._types = [
-        ]
+        this._types = []
         makeAutoObservable(this)
     }
 

@@ -22,13 +22,16 @@ export const Purchases = () => {
         console.log(fetchedPurchase);
         purchase.setPurchase(fetchedPurchase)
         await Promise.all(
-            purchase.purchases.map(async ({deviceId}, it) => {
+            purchase.purchases.map(async ({deviceId, id}, it) => {
                 const device = await fetchOneDevice(deviceId)
                 device.purchaseId = purchase.purchases[it].id
                 device.isIssued = purchase.purchases[it].isIssued
                 device.count = purchase.purchases[it].count
                 setDevices(prev => [...prev, device])
             })
+        )
+        
+        setDevices(prev => [...prev].sort((l, r) => r.purchaseId - l.purchaseId)  
         )
         setIsLoading(false)
     }
@@ -79,13 +82,11 @@ export const Purchases = () => {
                             </Row>
                         :   <Row>
                                 <p className="text-center"> Ваша история покупок пуста! Совершитее хотя бы одну, чтобы видеть вашу историю</p>
-                                <Button className="w-25 m-auto" onClick={()=>history.push('/')} size="lg" variant="info" >
+                                <Button className="m-auto" onClick={()=>history.push('/')} size="lg" variant="info" >
                                     Вернуться на главную 
                                 </Button> 
                             </Row>
-                    
                 }   
-
             </Row>
         </Container>
     )

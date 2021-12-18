@@ -13,7 +13,17 @@ import { fetchDevices } from '../../http/deviceAPI';
 
 const Main = observer(() => {
     const {device, cart} = React.useContext(Context) 
+
     React.useEffect(() => {
+        fetchCart().then(data => {
+            cart.setCart(data)
+        })
+    }, [])
+
+    React.useEffect(() => {
+        fetchCart().then(data => {
+            cart.setCart(data)
+        })
         fetchDevices(device.page, device.limit).then(data =>{
             console.log( device.page, device.limit)
             device.setDevices(data.rows)
@@ -31,7 +41,7 @@ const Main = observer(() => {
                     <Catalog/>
                 </Col>
                 <Col md={8}>
-                    <h4>Список товаров</h4>
+                    <h4>Список всех товаров</h4>
                     <DeviceList />
                     <Pages />
                 </Col>
