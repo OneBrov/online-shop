@@ -39,7 +39,8 @@ const App = observer (() => {
     ])
    
   }
-
+  console.log("API URL");
+  console.log(process.env.REACT_APP_API_URL);
   React.useEffect( () =>{
     // check().then(data => {
     //   user.setUser(data)
