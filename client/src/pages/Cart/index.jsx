@@ -96,7 +96,14 @@ const Cart = observer(() => {
         )
     }
     
-
+    const getFinalPrice = () => {
+        let finalPrice =0;
+        for (let i = 0; i<devices.length; i++){
+            const device=devices[i]
+            finalPrice+= device.count*device.price
+        }
+        return finalPrice
+    }
     return (
         <Container className="mt-5">
             <Row className="h-100 d-flex flex-column justify-content-center">
@@ -136,6 +143,11 @@ const Cart = observer(() => {
                                 <DeviceItem  device={device}/>
                             </Col>
                         )}
+                         <Col md={9} className="m-auto d-flex justify-content-end">
+                        <h2 className='ms-auto'>
+                            Итого: {getFinalPrice()}
+                        </h2>
+                        </Col>
                         <Button 
                             size="lg w-25 mt-3 mx-auto"
                             onClick={handleCheckout} 

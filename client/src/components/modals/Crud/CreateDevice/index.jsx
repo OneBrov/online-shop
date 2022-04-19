@@ -174,7 +174,7 @@ export const CreateDevice = ({show, onHide, updateItem, items, title, afterUpdat
                     variant="outline-dark mt-2"
                     onClick={addInfo}
                 >
-                    Добавить новое свойтсво
+                    Добавить новое свойство
                 </Button>
 
         </Crud>

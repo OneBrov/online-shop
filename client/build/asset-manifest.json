@@ -1,28 +1,28 @@
 {
   "files": {
-    "main.css": "/static/css/main.d452633e.chunk.css",
-    "main.js": "/static/js/main.4e21ccc4.chunk.js",
-    "main.js.map": "/static/js/main.4e21ccc4.chunk.js.map",
+    "main.css": "/static/css/main.a437df10.chunk.css",
+    "main.js": "/static/js/main.ef64a6e2.chunk.js",
+    "main.js.map": "/static/js/main.ef64a6e2.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.7545a8a1.js",
     "runtime-main.js.map": "/static/js/runtime-main.7545a8a1.js.map",
     "static/js/2.47191d6d.chunk.js": "/static/js/2.47191d6d.chunk.js",
     "static/js/2.47191d6d.chunk.js.map": "/static/js/2.47191d6d.chunk.js.map",
     "index.html": "/index.html",
-    "static/css/main.d452633e.chunk.css.map": "/static/css/main.d452633e.chunk.css.map",
+    "static/css/main.a437df10.chunk.css.map": "/static/css/main.a437df10.chunk.css.map",
     "static/js/2.47191d6d.chunk.js.LICENSE.txt": "/static/js/2.47191d6d.chunk.js.LICENSE.txt",
-    "static/media/computer.67165d72.svg": "/static/media/computer.67165d72.svg",
-    "static/media/contacts.c49cc750.svg": "/static/media/contacts.c49cc750.svg",
-    "static/media/emptyStar.e2e2a7a5.svg": "/static/media/emptyStar.e2e2a7a5.svg",
-    "static/media/fullStar.830ac747.svg": "/static/media/fullStar.830ac747.svg",
-    "static/media/headphones.7a7b174a.svg": "/static/media/headphones.7a7b174a.svg",
-    "static/media/history.8ad5b03b.svg": "/static/media/history.8ad5b03b.svg",
-    "static/media/phone.d90b4fc6.svg": "/static/media/phone.d90b4fc6.svg",
-    "static/media/shopping_cart.2d77242d.svg": "/static/media/shopping_cart.2d77242d.svg"
+    "static/media/computer.f7c1aeee.svg": "/static/media/computer.f7c1aeee.svg",
+    "static/media/contacts.54ab4c22.svg": "/static/media/contacts.54ab4c22.svg",
+    "static/media/emptyStar.8be70eb1.svg": "/static/media/emptyStar.8be70eb1.svg",
+    "static/media/fullStar.ebaceb9a.svg": "/static/media/fullStar.ebaceb9a.svg",
+    "static/media/headphones.0a3a013c.svg": "/static/media/headphones.0a3a013c.svg",
+    "static/media/history.7443116b.svg": "/static/media/history.7443116b.svg",
+    "static/media/phone.98ddbf96.svg": "/static/media/phone.98ddbf96.svg",
+    "static/media/shopping_cart.b6119919.svg": "/static/media/shopping_cart.b6119919.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.7545a8a1.js",
     "static/js/2.47191d6d.chunk.js",
-    "static/css/main.d452633e.chunk.css",
-    "static/js/main.4e21ccc4.chunk.js"
+    "static/css/main.a437df10.chunk.css",
+    "static/js/main.ef64a6e2.chunk.js"
   ]
 }

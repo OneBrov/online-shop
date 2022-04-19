@@ -53,7 +53,7 @@ export const UpdateDevice = ({show, onHide, updateItem, items, brands = [], type
             setItem={setItem}
             crudType="update"
         >
-            <h5>Выберете устройство, которое хотите обновить</h5>
+            <h5>Выберите устройство, которое хотите обновить</h5>
             <Dropdown className="mt-2">
                 <Dropdown.Toggle>{item?.name || `Выберите ${title}`}  </Dropdown.Toggle>
                 <Dropdown.Menu>
@@ -133,7 +133,7 @@ export const UpdateDevice = ({show, onHide, updateItem, items, brands = [], type
                 </div>
 
                 <div className="d-flex justify-content-between mt-2">
-                    <b className="mt-auto me-5">Количество усройств </b>
+                    <b className="mt-auto me-5">Количество устройств </b>
                     <Form.Control
                         className="w-50"
                         value={item.stock}
@@ -196,7 +196,7 @@ export const UpdateDevice = ({show, onHide, updateItem, items, brands = [], type
                     variant="outline-dark mt-2"
                     onClick={addInfo}
                 >
-                    Добавить новое свойтсво
+                    Добавить новое свойство
                 </Button>   
               
             </Row>
